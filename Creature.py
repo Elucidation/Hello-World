@@ -2,17 +2,19 @@ import random
 import randomName
 MAXENERGY = 50
 BIRTHENERGY = MAXENERGY * 0.9
+MAXLIFE = 100
 
 class Creature:
     "It lives..."
-    def __init__(self,name,x=0,y=0,energy=100,life=100):
+    def __init__(self,name,x=0,y=0,energy=MAXENERGY,life=MAXLIFE):
         self.name = name
         self.x = x
         self.y = y
         self.birthday = -1
         self.deathday = -1
         self.energy = energy # if drops to zero is death
-        self.life = life # This deteriorates at 1 per turn atm, can change
+        self.life = int(life * (random.random()+0.3))
+        # This deteriorates at 1 per turn atm, uncertain
     def setBirth(self,time):
         self.birthday = time
     def changeEnergy(self,amount):
