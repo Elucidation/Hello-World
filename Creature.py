@@ -1,5 +1,8 @@
 import random
 import randomName
+MAXENERGY = 50
+BIRTHENERGY = MAXENERGY * 0.9
+
 class Creature:
     "It lives..."
     def __init__(self,name,x=0,y=0,energy=100,life=100):
@@ -16,8 +19,8 @@ class Creature:
         self.energy += amount
         if self.energy < 0:
             self.energy = 0
-        elif self.energy > 100:
-            self.energy = 100
+        elif self.energy > MAXENERGY:
+            self.energy = MAXENERGY
     def changeLife(self,amount):
         self.life += amount
         if self.life < 0:
@@ -25,18 +28,20 @@ class Creature:
         elif self.life > 100:
             self.life = 100
     def canGiveBirth(self):
-        return self.energy > 95
+        return self.energy > BIRTHENERGY
     def getPos(self):
         return self.x,self.y
     def setPos(self,x,y):
         self.x=x
         self.y=y
     def giveBirth(self):
-        self.changeEnergy(-95)
-        babyname = self.name
+        self.changeEnergy(-BIRTHENERGY)
+        babyname = randomName.randShortName()+self.name[-3:]
         bx = self.x + random.randrange(-10,10)
         by = self.y + random.randrange(-10,10)
-        return Creature(babyname,bx,by)
+        baby=Creature(babyname,bx,by)
+        print self.name+" gave birth to "+str(baby)
+        return baby
 
     def kill(self,time):
         print self.name+" died at age "+`(time-self.birthday)`
@@ -51,7 +56,6 @@ class Creature:
             "P:(x:"+`self.x`+",y:"+`self.y`+")"+","+ \
             "Born:"+`self.birthday` + \
             ")"
-
 
 
 def randCreature():
