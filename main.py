@@ -1,26 +1,28 @@
 import random
-from Environment import Environment
-from Creature import Creature
+from Environment import *
+from Creature import *
+
 
 random.seed(2342040)
 
-import randomName
-print "\n-----Running World Simulation-----\n"
+
+print "\n----- Running World Simulation -----\n"
 
 
         
 World = Environment()
 
+
+    
+
 for i in range(0,5):
-    World.creatures.append(
-        Creature(randomName.randShortName())
-        )
+    World.addCreature( randCreature() )
 
 
 
-for i in range(0,10):
+for i in range(0,30):
     World.step()
 
 
-print "\n-----World Simulation Finished-----\n"
+print "\n----- World Simulation Finished -----\n"
 World.printStatus()
