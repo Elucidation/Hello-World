@@ -27,13 +27,19 @@ class Environment:
     def step(self):
         self.time += 1
         if (self.time%20 == 0 and VERBOSE):
-            self.printShortStatus()
+            self.printStatus()
             print "----- Stepping -----"
+        elif (self.time%1000 == 0):
+            print "---"
+            self.printStatus()
+            print "---"
+            
+        # Energy & Life Loss
         for c in self.creatures:
-            c.changeEnergy(-5) # slow energy loss
+            #c.changeEnergy(-5) # slow energy loss
+            c.loseEnergy() # special aging
             c.changeLife(-1) # Aging
-            if (c.x > self.MAXWIDTH/2):
-                c.changeEnergy(10) # Right half gets sunlight
+
         self.removeDead()
 
         # Babymaking time
@@ -44,7 +50,11 @@ class Environment:
                     self.addCreature(baby)
                     if VERBOSE:
                         print c.name+" gave birth to "+str(baby.name)
-            
+
+        # Energy gain for right half
+        for c in self.creatures:
+            if (c.x > self.MAXWIDTH/2):
+                c.changeEnergy(10) # Right half gets sunlight
 
     def removeDead(self):
         for c in self.creatures:

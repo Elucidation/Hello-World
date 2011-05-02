@@ -29,10 +29,11 @@ else:
 
 
 World.printStatus()
-print "\n----- World Simulation Starting -----\n"
+n = 1000
+print "\n----- World Simulation Starting for "+`n`+" steps -----\n"
 
 
-for i in range(0,1000):
+for i in range(0,n):
     World.step()
 
 

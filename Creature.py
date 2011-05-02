@@ -2,11 +2,11 @@ import random
 import randomName
 MAXENERGY = 50
 BIRTHENERGY = int(MAXENERGY * 0.9)
-MAXLIFE = 100
+#MAXLIFE = 100
 
 class Creature:
     "It lives..."
-    def __init__(self,name,x=0,y=0,energy=MAXENERGY,life=MAXLIFE):
+    def __init__(self,name,x=0,y=0,energy=MAXENERGY,life=100):
         self.name = name
         self.x = x
         self.y = y
@@ -24,14 +24,18 @@ class Creature:
             self.energy = 0
         elif self.energy > MAXENERGY:
             self.energy = MAXENERGY
+    def loseEnergy(self):
+        "function of age"
+        self.changeEnergy(-5)
+        #self.changeEnergy(-(self.maxlife-self.life)/self.maxlife*10)
     def changeLife(self,amount):
         self.life += amount
         if self.life < 0:
             self.life = 0
-        elif self.life > 100:
-            self.life = 100
+        #elif self.life > MAXLIFE:
+            #self.life = MAXLIFE
     def canGiveBirth(self):
-        return self.energy > BIRTHENERGY
+        return self.energy >= BIRTHENERGY
     def getPos(self):
         return self.x,self.y
     def setPos(self,x,y):
