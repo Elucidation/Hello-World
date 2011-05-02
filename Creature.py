@@ -1,7 +1,7 @@
 import random
 import randomName
 MAXENERGY = 50
-BIRTHENERGY = MAXENERGY * 0.9
+BIRTHENERGY = int(MAXENERGY * 0.9)
 MAXLIFE = 100
 
 class Creature:
@@ -14,6 +14,7 @@ class Creature:
         self.deathday = -1
         self.energy = energy # if drops to zero is death
         self.life = int(life * (random.random()+0.3))
+        self.maxlife = max(self.life,life)
         # This deteriorates at 1 per turn atm, uncertain
     def setBirth(self,time):
         self.birthday = time
@@ -41,12 +42,12 @@ class Creature:
         babyname = randomName.randShortName()+self.name[-3:]
         bx = self.x + random.randrange(-10,10)
         by = self.y + random.randrange(-10,10)
-        baby=Creature(babyname,bx,by)
-        print self.name+" gave birth to "+str(baby)
+        blife = self.maxlife
+        baby=Creature(babyname,bx,by,life=blife)
         return baby
 
     def kill(self,time):
-        print self.name+" died at age "+`(time-self.birthday)`
+        #print self.name+" died at age "+`(time-self.birthday)`
         del(self)
     def isDead(self):
         return self.energy <= 0 or self.life <= 0
@@ -56,7 +57,8 @@ class Creature:
             "L:"+`self.life`+","+\
             "E:"+`self.energy`+","+ \
             "P:(x:"+`self.x`+",y:"+`self.y`+")"+","+ \
-            "Born:"+`self.birthday` + \
+            "Born:"+`self.birthday` +"," + \
+            "ML:"+`self.maxlife`+\
             ")"
 
 
