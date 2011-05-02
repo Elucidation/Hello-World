@@ -22,6 +22,7 @@ class Environment:
 
     def printStatus(self):
         print "------Environment------"
+        print "Test"
         print " Time: ", self.time, " units"
         print " Population Count: ", len(self.creatures)
 
