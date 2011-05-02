@@ -11,7 +11,7 @@ class Environment:
     def step(self):
         self.time += 1
         self.printStatus()
-        print "-----Stepping-----"
+        print "----- Stepping -----"
         for c in self.creatures:
             c.energy -= 1
         self.removeDead()
@@ -21,7 +21,7 @@ class Environment:
             print "Checking if ",c," is dead... ",c.isDead()
 
     def printStatus(self):
-        print "------Environment------"
+        print "------ Environment ------"
         print " Time: ", self.time, " units"
         print " Population Count: ", len(self.creatures)
 
